@@ -1,7 +1,10 @@
 import express from "express";
+import helmet from "helmet";
+import cors from "cors";
 import { config } from "./config/config.js";
 
 import authRoutes from "./routes/auth.routes.js";
+import urlRoutes from "./routes/url.routes.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
 
 const app = express();
@@ -12,6 +15,7 @@ app.get("/health-check", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/url", urlRoutes);
 
 app.use(errorHandler);
 
