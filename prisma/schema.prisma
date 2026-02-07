@@ -17,12 +17,12 @@ model User {
   id Int @id @default(autoincrement())
   email String @unique
   password String
-  urls URL[]
+  urls Url[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-model URL {
+model Url {
   id Int @id @default(autoincrement())
   longUrl String
   shortCode String @unique
