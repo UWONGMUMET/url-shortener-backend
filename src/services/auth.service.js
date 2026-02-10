@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { hashPassword, comparePassword } from "../utils/password.js";
-import { generateToken } from "../utils/jwt.js";
+import { generateToken, verifyToken } from "../utils/jwt.js";
 
 const prisma = new PrismaClient();
 
@@ -42,4 +42,15 @@ export const loginUser = async (email, password) => {
 
     const token = generateToken(user.id);
     return { token };
-} 
+};
+
+export const logoutService = async (token) => {
+    const decoded = verifyToken(token);
+
+    return prisma.blacklistedToken.create({
+        data: {
+            token,
+            expiresAt: new Date(decoded.exp * 1000)
+        }
+    });
+};
