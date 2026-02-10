@@ -43,4 +43,17 @@ export const login = async (req, res, next) => {
     catch (error) {
         next(error);
     }
-}
+};
+
+export const logout = async (req, res, next) => {
+    try {
+        await authService.logoutService(req.token);
+
+        res.status(200).json({
+            success: true,
+            message: "Logout successful"
+        });
+    } catch(error) {
+        next(error);
+    }
+};
